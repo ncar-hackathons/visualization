@@ -7,30 +7,30 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1" />
 
   <title>
-    Introduction
+    Example
   </title>
   <meta
     name="description"
-    content=""
+    content="Example: contour plot with colors and labeled lines"
   />
 
   <link
     rel="canonical"
-    href="https://ncar-hackathons.github.io/visualization/content/features/intro.html"
+    href="https://ncar-hackathons.github.io/visualization/examples/example-MOC.html"
   />
   <link rel="alternate" type="application/rss+xml" title="Data Visualization in Python"
   href="https://ncar-hackathons.github.io/visualization/feed.xml"> <meta
   property="og:url"
-  content="https://ncar-hackathons.github.io/visualization/content/features/intro.html"
+  content="https://ncar-hackathons.github.io/visualization/examples/example-MOC.html"
 />
 <meta property="og:type" content="article" />
 <meta
   property="og:title"
-  content="Introduction"
+  content="Example"
 />
 <meta
   property="og:description"
-  content=""
+  content="Example: contour plot with colors and labeled lines"
 />
 <meta property="og:image" content="" />
 
@@ -39,11 +39,11 @@
     {
   "@context": "http://schema.org",
   "@type": "NewsArticle",
-  "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/content/features/intro.html",
-  "headline": "Introduction",
-  "datePublished": "2019-05-19T02:31:10+00:00",
-  "dateModified": "2019-05-19T02:31:10+00:00",
-  "description": "",
+  "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/examples/example-MOC.html",
+  "headline": "Example",
+  "datePublished": "2019-05-27T14:38:09+00:00",
+  "dateModified": "2019-05-27T14:38:09+00:00",
+  "description": "Example: contour plot with colors and labeled lines",
   "author": {
     "@type": "Person",
     "name": "The XDev Team"
@@ -245,7 +245,7 @@
       theme: "abcdef"
     },
     kernelOptions: {
-      name: 'python3',
+      name: 'py3',
     }
   }
 </script>
@@ -829,7 +829,7 @@ initFunction(initQuery);
   <ul class="c-sidebar__chapters">
           
     <li class="c-sidebar__chapter">
-      <a class="c-sidebar__entry c-sidebar__entry--active" href="/visualization/intro.html">
+      <a class="c-sidebar__entry " href="/visualization/intro.html">
          Home
       </a>
 
@@ -844,8 +844,8 @@ initFunction(initQuery);
     </li>
           
     <li class="c-sidebar__chapter">
-      <a class="c-sidebar__entry c-sidebar__entry--active" href="/visualization/features/intro.html">
-         Features
+      <a class="c-sidebar__entry " href="/visualization/examples/intro.html">
+         Eaxmples
       </a>
 
         
@@ -856,8 +856,8 @@ initFunction(initQuery);
 
         <li class="c-sidebar__section">
           <a
-            class="c-sidebar__entry "
-            href="/visualization/features/01_example.html"
+            class="c-sidebar__entry c-sidebar__entry--active"
+            href="/visualization/examples/example-MOC.html"
           >
              Example
           </a>
@@ -899,11 +899,236 @@ initFunction(initQuery);
   </button>
 </div>
  
+<div class="buttons">
+  <a href="/visualization/content/examples/example-MOC.ipynb" download>
+  <button id="interact-button-download" class="interact-button">
+    Download
+  </button>
+</a>
+
+ <button id="interact-button-thebelab" class="interact-button">
+  Thebelab
+</button>
+
+ 
+    
+
+<a href="https://binder.pangeo.io/v2/gh/ncar-hackathons/visualization/master?urlpath=lab/tree/content%2Fexamples%2Fexample-MOC.ipynb"
+  ><button class="interact-button" id="interact-button-binder">
+    <img
+      class="interact-button-logo"
+      src="/visualization/assets/images/logo_binder.svg"
+      alt="Interact"
+    />Interact
+  </button></a
+>
+ 
+
+</div>
+
 
           <div class="c-textbook__content">
-            <h1 id="introduction">Introduction</h1>
+            <h1 id="example-contour-plot-with-colors-and-labeled-lines">Example: contour plot with colors and labeled lines</h1>
+
+<p>In this example, we’ll plot the Meridional Overturning (MOC) streamfunction from the CESM-POP ocean component model.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="n">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<h2 id="load-the-dataset">Load the dataset</h2>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s">'data/moc.zarr'</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+      <div class="output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xarray.Dataset {
+dimensions:
+	lat_aux_grid = 395 ;
+	moc_z = 61 ;
+
+variables:
+	float32 MOC(moc_z, lat_aux_grid) ;
+		MOC:cell_methods = time: mean moc_comp: mean transport_reg: mean ;
+		MOC:coordinates = lat_aux_grid moc_z onents ion  ;
+		MOC:long_name = Meridional Overturning Circulation ;
+		MOC:units = Sverdrups ;
+	float32 lat_aux_grid(lat_aux_grid) ;
+		lat_aux_grid:long_name = latitude grid for transport diagnostics ;
+		lat_aux_grid:units = degrees_north ;
+		lat_aux_grid:valid_max = 90.0 ;
+		lat_aux_grid:valid_min = -79.48815155029297 ;
+	float32 moc_z(moc_z) ;
+		moc_z:long_name = depth from surface to top of layer ;
+		moc_z:positive = down ;
+		moc_z:units = centimeters ;
+		moc_z:valid_max = 549999.0625 ;
+		moc_z:valid_min = 0.0 ;
+
+// global attributes:
+	:note = Total global MOC from b.e21.B1850.f09_g17.CMIP6-piControl.001 ;
+	:time_period = 1000-1099 ;
+}```
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+### Make a "quick-look" plot
+
+Use the `xarray` plot method to take a quick look at the data.
+
+&lt;div markdown="1" class="cell code_cell"&gt;
+&lt;div class="input_area" markdown="1"&gt;
+```python
+ds.MOC.plot(yincrease=False);
+</code></pre></div>      </div>
+    </div>
+
+    <div class="output_wrapper">
+      <div class="output_subarea">
+
+        <p class="output_png"><img src="../images/examples/example-MOC_5_0.png" alt="png" /></p>
+
+      </div>
+    </div>
+  </div>
+
+  <h2 id="make-a-publication-quality-plot">Make a publication-quality plot</h2>
+
+  <h3 id="set-the-contour-levels">Set the contour levels.</h3>
+
+  <div class="cell code_cell">
+    <div class="input_area">
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lo</span> <span class="o">=</span> <span class="o">-</span><span class="mf">40.</span>
+<span class="n">hi</span> <span class="o">=</span> <span class="mf">40.</span>
+<span class="n">dc</span> <span class="o">=</span> <span class="mf">4.</span>
+<span class="n">cnlevels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="o">+</span><span class="n">dc</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span>
+<span class="n">cnlevels</span>
+</code></pre></div>      </div>
+    </div>
+
+    <div class="output_wrapper">
+      <div class="output_subarea">
+
+        <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([-40., -36., -32., -28., -24., -20., -16., -12.,  -8.,  -4.,   0.,
+         4.,   8.,  12.,  16.,  20.,  24.,  28.,  32.,  36.,  40.])
+</code></pre></div>        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <h3 id="generate-the-figure">Generate the figure</h3>
+
+  <p>Create a two-panel plot with refined resolution in the upper ocean.</p>
+
+  <div class="cell code_cell">
+    <div class="input_area">
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># create a figure object</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">))</span>
+
+<span class="c"># add two axes</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">])</span> <span class="c"># top 1000 m</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span> <span class="c"># deep ocean</span>
+
+<span class="c"># set the background color where </span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'darkgray'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'darkgray'</span><span class="p">)</span>
+
+<span class="c"># plot the field by looping over axes</span>
+<span class="c"># contour lines</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="c"># dimension lists</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]):</span>
+    <span class="n">cs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">lat_aux_grid</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">moc_z</span><span class="o">*</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">MOC</span><span class="p">,</span>
+                       <span class="n">colors</span><span class="o">=</span><span class="s">'k'</span><span class="p">,</span>
+                       <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                       <span class="n">levels</span><span class="o">=</span><span class="n">cnlevels</span><span class="p">)</span>
+
+    <span class="c"># contour colors</span>
+    <span class="n">mesh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">lat_aux_grid</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">moc_z</span><span class="o">*</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">MOC</span><span class="p">,</span>
+                          <span class="n">levels</span><span class="o">=</span><span class="n">cnlevels</span><span class="p">,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="s">'PRGn'</span><span class="p">,</span>
+                          <span class="n">extend</span><span class="o">=</span><span class="s">'both'</span><span class="p">)</span>
+
+<span class="c"># set axis limits, not the reversed limits reverse the y-axis</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">5500.</span><span class="p">,</span> <span class="mf">1000.</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
+
+<span class="c"># add contour line labels after axis limits have been set</span>
+<span class="k">for</span> <span class="n">csi</span> <span class="ow">in</span> <span class="n">cs</span><span class="p">:</span>
+    <span class="n">lb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">csi</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'</span><span class="si">%.0</span><span class="s">f'</span><span class="p">)</span>    
+
+<span class="c"># set tick properties</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s">'top'</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Latitude'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s">'bottom'</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Depth [m]'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'MOC [Sv]'</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s">'left'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Global'</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s">'right'</span><span class="p">);</span>
+</code></pre></div>      </div>
+    </div>
+
+    <div class="output_wrapper">
+      <div class="output_subarea">
+
+        <p class="output_png"><img src="../images/examples/example-MOC_9_0.png" alt="png" /></p>
+
+      </div>
+    </div>
+  </div>
+
+  <h3 id="save-figure-to-file">Save figure to file</h3>
+
+  <div class="cell code_cell">
+    <div class="input_area">
+      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'moc-plot.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span>
+</code></pre></div>      </div>
+    </div>
+
+  </div>
+</div>
  <nav class="c-page__nav">
    
+  <a
+    id="js-page__nav__prev"
+    class="c-page__nav__prev"
+    href="/visualization/examples/intro"
+  >
+    〈 <span class="u-margin-right-tiny"></span> Eaxmples
+  </a>
+    
+  <a
+    id="js-page__nav__next"
+    class="c-page__nav__next"
+    href=""
+  >
+    
+    <span class="u-margin-right-tiny"></span> 〉
+  </a>
+  
 </nav>
 
           </div>
