@@ -1,0 +1,10 @@
+{
+    "_ARRAY_DIMENSIONS": [
+        "moc_z",
+        "lat_aux_grid"
+    ],
+    "cell_methods": "time: mean moc_comp: mean transport_reg: mean",
+    "coordinates": "lat_aux_grid moc_z onents ion ",
+    "long_name": "Meridional Overturning Circulation",
+    "units": "Sverdrups"
+}
