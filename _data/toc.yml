@@ -29,3 +29,5 @@
   sections:
     - title: Example
       url: /examples/example-MOC
+    - title: Cartopy Map Projections
+      url: /examples/cartopy_map_projections

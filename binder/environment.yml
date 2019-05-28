@@ -1,12 +1,19 @@
-name: test-env
+name: binder-env
 channels:
   - conda-forge
 dependencies:
-  - ruby
   - python==3.7
   - pandas
   - numpy
   - matplotlib
   - scipy
+  - hvplot
+  - geoviews
+  - holoviews
+  - xarray
+  - ipywidgets
+  - widgetsnbextension
+  - dask
+  - zarr
   - pip:
-      - -r ../requirements.txt
+      - watermark
