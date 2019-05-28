@@ -56,8 +56,8 @@
   "@type": "NewsArticle",
   "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/search",
   "headline": "Search the site",
-  "datePublished": "2019-05-28T16:51:58+00:00",
-  "dateModified": "2019-05-28T16:51:58+00:00",
+  "datePublished": "2019-05-28T21:51:02+00:00",
+  "dateModified": "2019-05-28T21:51:02+00:00",
   "description": "",
   "author": {
     "@type": "Person",
@@ -879,6 +879,18 @@ initFunction(initQuery);
 
            
         </li>
+           
+
+        <li class="c-sidebar__section">
+          <a
+            class="c-sidebar__entry "
+            href="/visualization/examples/cartopy_map_projections.html"
+          >
+             Cartopy Map Projections
+          </a>
+
+           
+        </li>
          
       </ul>
       
@@ -920,6 +932,14 @@ initFunction(initQuery);
 <script>
   // Add the lunr store since we will now search it
   var store = [{
+        "title": "Cartopy Map Projections",
+        
+        "excerpt":
+            "Cartopy Projections Cartopy supports several map projections. If you have data that’s on a particular map projection, you can easily project it onto a different map projection. The purpose of this notebook is to generate a plot using every map projection in Cartopy. A full list of supported projections can be found here. %matplotlib inline import warnings warnings.simplefilter(\"ignore\") # Silence warnings import hvplot.xarray import xarray as xr import cartopy.crs as ccrs import matplotlib.pyplot as plt import geoviews as gv import numpy as np Read data ds = xr.open_dataset(\"../data/cdf/uv300.nc\").load() ds &lt;xarray.Dataset&gt; Dimensions: (lat: 64, lon: 128, time: 2) Coordinates: * lat...",
+        "categories": [],
+        "tags": [],
+        "url": "https://ncar-hackathons.github.io/visualization/examples/cartopy_map_projections.html",
+        "teaser":null},{
         "title": "Example",
         
         "excerpt":
