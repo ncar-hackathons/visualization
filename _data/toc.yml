@@ -27,6 +27,7 @@
   not_numbered: true
   expand_sections: true
   sections:
-    - title: Plot POP2-CESM MOC
+    - title: POP2-CESM MOC
       url: /examples/example-MOC
-      
+    - title: Contour with streamlines
+      url: /examples/example-Streamlines
