@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1" />
 
   <title>
-    Example
+    POP2-CESM MOC
   </title>
   <meta
     name="description"
@@ -41,7 +41,7 @@
 <meta property="og:type" content="article" />
 <meta
   property="og:title"
-  content="Example"
+  content="POP2-CESM MOC"
 />
 <meta
   property="og:description"
@@ -55,9 +55,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/examples/example-MOC.html",
-  "headline": "Example",
-  "datePublished": "2019-05-29T01:39:49+00:00",
-  "dateModified": "2019-05-29T01:39:49+00:00",
+  "headline": "POP2-CESM MOC",
+  "datePublished": "2019-05-30T22:49:25+00:00",
+  "dateModified": "2019-05-30T22:49:25+00:00",
   "description": "Example: contour plot with colors and labeled lines",
   "author": {
     "@type": "Person",
@@ -880,7 +880,19 @@ initFunction(initQuery);
             class="c-sidebar__entry c-sidebar__entry--active"
             href="/visualization/examples/example-MOC.html"
           >
-             Example
+             POP2-CESM MOC
+          </a>
+
+           
+        </li>
+           
+
+        <li class="c-sidebar__section">
+          <a
+            class="c-sidebar__entry "
+            href="/visualization/examples/example-Streamlines.html"
+          >
+             Contour with streamlines
           </a>
 
            
@@ -980,7 +992,7 @@ initFunction(initQuery);
 
 <div class="cell code_cell">
   <div class="input_area">
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s">'data/moc.zarr'</span><span class="p">)</span>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s">'../data/moc.zarr'</span><span class="p">)</span>
 <span class="n">ds</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </code></pre></div>    </div>
   </div>
@@ -1025,7 +1037,7 @@ Use the `xarray` plot method to take a quick look at the data.
 &lt;div markdown="1" class="cell code_cell"&gt;
 &lt;div class="input_area" markdown="1"&gt;
 ```python
-ds.MOC.plot(yincrease=False);
+h = ds.MOC.plot(yincrease=False)
 </code></pre></div>      </div>
     </div>
 
@@ -1081,10 +1093,10 @@ ds.MOC.plot(yincrease=False);
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s">'darkgray'</span><span class="p">)</span>
 
 <span class="c"># plot the field by looping over axes</span>
-<span class="c"># contour lines</span>
 <span class="n">cs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="c"># dimension lists</span>
 <span class="n">mesh</span> <span class="o">=</span> <span class="p">[</span><span class="bp">None</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]):</span>
+    <span class="c"># contour lines</span>
     <span class="n">cs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">lat_aux_grid</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">moc_z</span><span class="o">*</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">MOC</span><span class="p">,</span>
                        <span class="n">colors</span><span class="o">=</span><span class="s">'k'</span><span class="p">,</span>
                        <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
@@ -1096,7 +1108,7 @@ ds.MOC.plot(yincrease=False);
                           <span class="n">cmap</span><span class="o">=</span><span class="s">'PRGn'</span><span class="p">,</span>
                           <span class="n">extend</span><span class="o">=</span><span class="s">'both'</span><span class="p">)</span>
 
-<span class="c"># set axis limits, not the reversed limits reverse the y-axis</span>
+<span class="c"># set axis limits, note the reversed limits reverse the y-axis</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">1000.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mf">5500.</span><span class="p">,</span> <span class="mf">1000.</span><span class="p">])</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">])</span>
@@ -1106,19 +1118,22 @@ ds.MOC.plot(yincrease=False);
 <span class="k">for</span> <span class="n">csi</span> <span class="ow">in</span> <span class="n">cs</span><span class="p">:</span>
     <span class="n">lb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">csi</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'</span><span class="si">%.0</span><span class="s">f'</span><span class="p">)</span>    
 
-<span class="c"># set tick properties</span>
+<span class="c"># set tick properties top axis</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s">'top'</span><span class="p">)</span>
 
+<span class="c"># set tick properties bottom axis</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Latitude'</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s">'bottom'</span><span class="p">)</span>
 
+<span class="c"># axis label</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Depth [m]'</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="o">-</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
 
+<span class="c"># title</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'MOC [Sv]'</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s">'left'</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Global'</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s">'right'</span><span class="p">);</span>
 </code></pre></div>      </div>
@@ -1156,9 +1171,9 @@ ds.MOC.plot(yincrease=False);
   <a
     id="js-page__nav__next"
     class="c-page__nav__next"
-    href="/visualization/examples/cartopy_map_projections"
+    href="/visualization/examples/example-Streamlines"
   >
-    Cartopy Map Projections
+    Contour with streamlines
     <span class="u-margin-right-tiny"></span> 〉
   </a>
   
