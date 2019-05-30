@@ -31,3 +31,5 @@
       url: /examples/example-MOC
     - title: Contour with streamlines
       url: /examples/example-Streamlines
+    - title: Cartopy Map Projections
+      url: /examples/cartopy_map_projections
