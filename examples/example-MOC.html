@@ -56,8 +56,8 @@
   "@type": "NewsArticle",
   "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/examples/example-MOC.html",
   "headline": "POP2-CESM MOC",
-  "datePublished": "2019-05-30T22:49:25+00:00",
-  "dateModified": "2019-05-30T22:49:25+00:00",
+  "datePublished": "2019-05-31T00:10:34+00:00",
+  "dateModified": "2019-05-31T00:10:34+00:00",
   "description": "Example: contour plot with colors and labeled lines",
   "author": {
     "@type": "Person",
@@ -993,95 +993,80 @@ initFunction(initQuery);
 <div class="cell code_cell">
   <div class="input_area">
     <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="s">'../data/moc.zarr'</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">ds</span>
 </code></pre></div>    </div>
   </div>
 
   <div class="output_wrapper">
     <div class="output_subarea">
-      <div class="output_stream highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xarray.Dataset {
-dimensions:
-	lat_aux_grid = 395 ;
-	moc_z = 61 ;
 
-variables:
-	float32 MOC(moc_z, lat_aux_grid) ;
-		MOC:cell_methods = time: mean moc_comp: mean transport_reg: mean ;
-		MOC:coordinates = lat_aux_grid moc_z onents ion  ;
-		MOC:long_name = Meridional Overturning Circulation ;
-		MOC:units = Sverdrups ;
-	float32 lat_aux_grid(lat_aux_grid) ;
-		lat_aux_grid:long_name = latitude grid for transport diagnostics ;
-		lat_aux_grid:units = degrees_north ;
-		lat_aux_grid:valid_max = 90.0 ;
-		lat_aux_grid:valid_min = -79.48815155029297 ;
-	float32 moc_z(moc_z) ;
-		moc_z:long_name = depth from surface to top of layer ;
-		moc_z:positive = down ;
-		moc_z:units = centimeters ;
-		moc_z:valid_max = 549999.0625 ;
-		moc_z:valid_min = 0.0 ;
-
-// global attributes:
-	:note = Total global MOC from b.e21.B1850.f09_g17.CMIP6-piControl.001 ;
-	:time_period = 1000-1099 ;
-}```
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-### Make a "quick-look" plot
-
-Use the `xarray` plot method to take a quick look at the data.
-
-&lt;div markdown="1" class="cell code_cell"&gt;
-&lt;div class="input_area" markdown="1"&gt;
-```python
-h = ds.MOC.plot(yincrease=False)
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;xarray.Dataset&gt;
+Dimensions:       (lat_aux_grid: 395, moc_z: 61)
+Coordinates:
+  * lat_aux_grid  (lat_aux_grid) float32 -79.48815 -78.952896 ... 89.47441 90.0
+  * moc_z         (moc_z) float32 0.0 1000.0 2000.0 ... 525000.94 549999.06
+Data variables:
+    MOC           (moc_z, lat_aux_grid) float32 dask.array&lt;shape=(61, 395), chunksize=(61, 395)&gt;
+Attributes:
+    note:         Total global MOC from b.e21.B1850.f09_g17.CMIP6-piControl.001
+    time_period:  1000-1099
 </code></pre></div>      </div>
-    </div>
 
-    <div class="output_wrapper">
-      <div class="output_subarea">
-
-        <p class="output_png"><img src="../images/examples/example-MOC_5_0.png" alt="png" /></p>
-
-      </div>
     </div>
   </div>
+</div>
 
-  <h2 id="make-a-publication-quality-plot">Make a publication-quality plot</h2>
+<h3 id="make-a-quick-look-plot">Make a “quick-look” plot</h3>
 
-  <h3 id="set-the-contour-levels">Set the contour levels.</h3>
+<p>Use the <code class="highlighter-rouge">xarray</code> plot method to take a quick look at the data.</p>
 
-  <div class="cell code_cell">
-    <div class="input_area">
-      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lo</span> <span class="o">=</span> <span class="o">-</span><span class="mf">40.</span>
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">h</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">MOC</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yincrease</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <p class="output_png"><img src="../images/examples/example-MOC_5_0.png" alt="png" /></p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="make-a-publication-quality-plot">Make a publication-quality plot</h2>
+
+<h3 id="set-the-contour-levels">Set the contour levels.</h3>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lo</span> <span class="o">=</span> <span class="o">-</span><span class="mf">40.</span>
 <span class="n">hi</span> <span class="o">=</span> <span class="mf">40.</span>
 <span class="n">dc</span> <span class="o">=</span> <span class="mf">4.</span>
 <span class="n">cnlevels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="o">+</span><span class="n">dc</span><span class="p">,</span> <span class="n">dc</span><span class="p">)</span>
 <span class="n">cnlevels</span>
-</code></pre></div>      </div>
-    </div>
-
-    <div class="output_wrapper">
-      <div class="output_subarea">
-
-        <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([-40., -36., -32., -28., -24., -20., -16., -12.,  -8.,  -4.,   0.,
-         4.,   8.,  12.,  16.,  20.,  24.,  28.,  32.,  36.,  40.])
-</code></pre></div>        </div>
-
-      </div>
-    </div>
+</code></pre></div>    </div>
   </div>
 
-  <h3 id="generate-the-figure">Generate the figure</h3>
+  <div class="output_wrapper">
+    <div class="output_subarea">
 
-  <p>Create a two-panel plot with refined resolution in the upper ocean.</p>
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([-40., -36., -32., -28., -24., -20., -16., -12.,  -8.,  -4.,   0.,
+         4.,   8.,  12.,  16.,  20.,  24.,  28.,  32.,  36.,  40.])
+</code></pre></div>      </div>
 
-  <div class="cell code_cell">
-    <div class="input_area">
-      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># create a figure object</span>
+    </div>
+  </div>
+</div>
+
+<h3 id="generate-the-figure">Generate the figure</h3>
+
+<p>Create a two-panel plot with refined resolution in the upper ocean.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># create a figure object</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">))</span>
 
 <span class="c"># add two axes</span>
@@ -1136,27 +1121,26 @@ h = ds.MOC.plot(yincrease=False)
 <span class="c"># title</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'MOC [Sv]'</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s">'left'</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Global'</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s">'right'</span><span class="p">);</span>
-</code></pre></div>      </div>
-    </div>
-
-    <div class="output_wrapper">
-      <div class="output_subarea">
-
-        <p class="output_png"><img src="../images/examples/example-MOC_9_0.png" alt="png" /></p>
-
-      </div>
-    </div>
+</code></pre></div>    </div>
   </div>
 
-  <h3 id="save-figure-to-file">Save figure to file</h3>
+  <div class="output_wrapper">
+    <div class="output_subarea">
 
-  <div class="cell code_cell">
-    <div class="input_area">
-      <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'moc-plot.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span>
-</code></pre></div>      </div>
+      <p class="output_png"><img src="../images/examples/example-MOC_9_0.png" alt="png" /></p>
+
     </div>
-
   </div>
+</div>
+
+<h3 id="save-figure-to-file">Save figure to file</h3>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'moc-plot.png'</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </div>
+
 </div>
  <nav class="c-page__nav">
    

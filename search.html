@@ -56,8 +56,8 @@
   "@type": "NewsArticle",
   "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/search",
   "headline": "Search the site",
-  "datePublished": "2019-05-30T22:49:25+00:00",
-  "dateModified": "2019-05-30T22:49:25+00:00",
+  "datePublished": "2019-05-31T00:10:34+00:00",
+  "dateModified": "2019-05-31T00:10:34+00:00",
   "description": "",
   "author": {
     "@type": "Person",
@@ -961,7 +961,7 @@ initFunction(initQuery);
         "title": "POP2-CESM MOC",
         
         "excerpt":
-            "Example: contour plot with colors and labeled lines In this example, we’ll plot the Meridional Overturning (MOC) streamfunction from the CESM-POP ocean component model. %matplotlib inline import xarray as xr import numpy as np import matplotlib.pyplot as plt Load the dataset ds = xr.open_zarr('../data/moc.zarr') ds.info() xarray.Dataset { dimensions: lat_aux_grid = 395 ; moc_z = 61 ; variables: float32 MOC(moc_z, lat_aux_grid) ; MOC:cell_methods = time: mean moc_comp: mean transport_reg: mean ; MOC:coordinates = lat_aux_grid moc_z onents ion ; MOC:long_name = Meridional Overturning Circulation ; MOC:units = Sverdrups ; float32 lat_aux_grid(lat_aux_grid) ; lat_aux_grid:long_name = latitude grid for transport diagnostics ; lat_aux_grid:units =...",
+            "Example: contour plot with colors and labeled lines In this example, we’ll plot the Meridional Overturning (MOC) streamfunction from the CESM-POP ocean component model. %matplotlib inline import xarray as xr import numpy as np import matplotlib.pyplot as plt Load the dataset ds = xr.open_zarr('../data/moc.zarr') ds &lt;xarray.Dataset&gt; Dimensions: (lat_aux_grid: 395, moc_z: 61) Coordinates: * lat_aux_grid (lat_aux_grid) float32 -79.48815 -78.952896 ... 89.47441 90.0 * moc_z (moc_z) float32 0.0 1000.0 2000.0 ... 525000.94 549999.06 Data variables: MOC (moc_z, lat_aux_grid) float32 dask.array&lt;shape=(61, 395), chunksize=(61, 395)&gt; Attributes: note: Total global MOC from b.e21.B1850.f09_g17.CMIP6-piControl.001 time_period: 1000-1099 Make a “quick-look” plot Use the xarray plot method to...",
         "categories": [],
         "tags": [],
         "url": "https://ncar-hackathons.github.io/visualization/examples/example-MOC.html",
@@ -969,7 +969,7 @@ initFunction(initQuery);
         "title": "Contour with streamlines",
         
         "excerpt":
-            "Example: Contour plot with streamlines In this example, we’ll plot a tracer field from CAM and overlay streamlines showing the flow. %matplotlib inline import xarray as xr import numpy as np import matplotlib.pyplot as plt import cartopy.crs as ccrs from cartopy.util import add_cyclic_point Load the dataset ds = xr.open_dataset('../data/co2.nc') ds.info() xarray.Dataset { dimensions: lat = 192 ; lon = 288 ; variables: float32 CO2(lat, lon) ; CO2:mdims = 1 ; CO2:units = kg/kg ; CO2:long_name = CO2 ; CO2:cell_methods = time: mean lev: mean ; float32 U(lat, lon) ; U:mdims = 1 ; U:units = m/s ; U:long_name = Zonal...",
+            "Example: Contour plot with streamlines In this example, we’ll plot a tracer field from CAM and overlay streamlines showing the flow. %matplotlib inline import xarray as xr import numpy as np import matplotlib.pyplot as plt import cartopy.crs as ccrs from cartopy.util import add_cyclic_point Load the dataset ds = xr.open_dataset('../data/co2.nc') ds &lt;xarray.Dataset&gt; Dimensions: (lat: 192, lon: 288) Coordinates: * lat (lat) float64 -90.0 -89.06 -88.12 -87.17 ... 87.17 88.12 89.06 90.0 * lon (lon) float64 0.0 1.25 2.5 3.75 5.0 ... 355.0 356.2 357.5 358.8 Data variables: CO2 (lat, lon) float32 ... U (lat, lon) float32 ... V (lat, lon) float32...",
         "categories": [],
         "tags": [],
         "url": "https://ncar-hackathons.github.io/visualization/examples/example-Streamlines.html",
