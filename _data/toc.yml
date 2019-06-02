@@ -29,7 +29,6 @@
   sections:
     - title: Matplotlib
       url: /matplotlib-basics
-  sections:
     - title: Cartopy
       url: /cartopy-basics
 
