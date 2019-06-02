@@ -22,30 +22,30 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1" />
 
   <title>
-    Examples
+    Matplotlib
   </title>
   <meta
     name="description"
-    content=""
+    content="Visualization I"
   />
 
   <link
     rel="canonical"
-    href="https://ncar-hackathons.github.io/visualization/content/examples/intro.html"
+    href="https://ncar-hackathons.github.io/visualization/matplotlib-basics.html"
   />
   <link rel="alternate" type="application/rss+xml" title="Data Visualization in Python"
   href="https://ncar-hackathons.github.io/visualization/feed.xml"> <meta
   property="og:url"
-  content="https://ncar-hackathons.github.io/visualization/content/examples/intro.html"
+  content="https://ncar-hackathons.github.io/visualization/matplotlib-basics.html"
 />
 <meta property="og:type" content="article" />
 <meta
   property="og:title"
-  content="Examples"
+  content="Matplotlib"
 />
 <meta
   property="og:description"
-  content=""
+  content="Visualization I"
 />
 <meta property="og:image" content="" />
 
@@ -54,11 +54,11 @@
     {
   "@context": "http://schema.org",
   "@type": "NewsArticle",
-  "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/content/examples/intro.html",
-  "headline": "Examples",
+  "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/matplotlib-basics.html",
+  "headline": "Matplotlib",
   "datePublished": "2019-06-02T20:33:03+00:00",
   "dateModified": "2019-06-02T20:33:03+00:00",
-  "description": "",
+  "description": "Visualization I",
   "author": {
     "@type": "Person",
     "name": "The XDev Team"
@@ -266,7 +266,7 @@
       theme: "abcdef"
     },
     kernelOptions: {
-      name: 'python3',
+      name: 'dev',
     }
   }
 </script>
@@ -850,7 +850,7 @@ initFunction(initQuery);
   <ul class="c-sidebar__chapters">
           
     <li class="c-sidebar__chapter">
-      <a class="c-sidebar__entry c-sidebar__entry--active" href="/visualization/intro.html">
+      <a class="c-sidebar__entry " href="/visualization/intro.html">
          Home
       </a>
 
@@ -877,7 +877,7 @@ initFunction(initQuery);
 
         <li class="c-sidebar__section">
           <a
-            class="c-sidebar__entry "
+            class="c-sidebar__entry c-sidebar__entry--active"
             href="/visualization/matplotlib-basics.html"
           >
              Matplotlib
@@ -904,7 +904,7 @@ initFunction(initQuery);
 
            
     <li class="c-sidebar__chapter">
-      <a class="c-sidebar__entry c-sidebar__entry--active" href="/visualization/examples/intro.html">
+      <a class="c-sidebar__entry " href="/visualization/examples/intro.html">
          Examples
       </a>
 
@@ -983,13 +983,220 @@ initFunction(initQuery);
   </button>
 </div>
  
+<div class="buttons">
+  <a href="/visualization/content/matplotlib-basics.ipynb" download>
+  <button id="interact-button-download" class="interact-button">
+    Download
+  </button>
+</a>
+
+ <button id="interact-button-thebelab" class="interact-button">
+  Thebelab
+</button>
+
+ 
+    
+
+<a href="https://binder.pangeo.io/v2/gh/ncar-hackathons/visualization/master?urlpath=lab/tree/content%2Fmatplotlib-basics.ipynb"
+  ><button class="interact-button" id="interact-button-binder">
+    <img
+      class="interact-button-logo"
+      src="/visualization/assets/images/logo_binder.svg"
+      alt="Interact"
+    />Interact
+  </button></a
+>
+ 
+
+</div>
+
 
           <div class="c-textbook__content">
-            <h1 id="examples">Examples</h1>
+            <h1 id="visualization-i">Visualization I</h1>
 
-<p>Here are several examples of common plotting operations.</p>
+<h2 id="objectives">Objectives</h2>
+<ol>
+  <li>Recognize the basics of <code class="highlighter-rouge">matplotlib</code> figure elements.</li>
+  <li>Create a basic line plot, add labels, and grid lines to the plot.</li>
+  <li>Plot multiple series of data.</li>
+  <li>Plot <code class="highlighter-rouge">imshow</code>, <code class="highlighter-rouge">contour</code>, and filled contour (<code class="highlighter-rouge">contourf</code>) plots.</li>
+  <li>Introduction to <code class="highlighter-rouge">cartopy</code> and making maps.</li>
+</ol>
+
+<h2 id="getting-started-with-matplotlib">Getting started with <code class="highlighter-rouge">matplotlib</code></h2>
+
+<p>Use a <a href="https://ipython.readthedocs.io/en/stable/interactive/tutorial.html#magic-functions">magic function</a>
+to set the backend of matplotlib to the ‘inline’ backend. This makes the <code class="highlighter-rouge">matplotlib</code> plots appear inline as images.</p>
+
+<p>Import <code class="highlighter-rouge">matplotlib</code>’s <code class="highlighter-rouge">pyplot</code> interface as well as <code class="highlighter-rouge">numpy</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<p>Import <code class="highlighter-rouge">matplotlib</code>’s <code class="highlighter-rouge">pyplot</code> interface as well as <code class="highlighter-rouge">numpy</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<p>Generate some data to use while experimenting with plotting:</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">93.</span><span class="p">,</span>  <span class="mf">96.</span><span class="p">,</span>  <span class="mf">99.</span><span class="p">,</span> <span class="mf">102.</span><span class="p">,</span> <span class="mf">105.</span><span class="p">,</span> <span class="mf">108.</span><span class="p">,</span> <span class="mf">111.</span><span class="p">,</span> <span class="mf">114.</span><span class="p">,</span> <span class="mf">117.</span><span class="p">,</span>
+                  <span class="mf">120.</span><span class="p">,</span> <span class="mf">123.</span><span class="p">,</span> <span class="mf">126.</span><span class="p">,</span> <span class="mf">129.</span><span class="p">,</span> <span class="mf">132.</span><span class="p">,</span> <span class="mf">135.</span><span class="p">,</span> <span class="mf">138.</span><span class="p">,</span> <span class="mf">141.</span><span class="p">,</span> <span class="mf">144.</span><span class="p">,</span>
+                  <span class="mf">147.</span><span class="p">,</span> <span class="mf">150.</span><span class="p">,</span> <span class="mf">153.</span><span class="p">,</span> <span class="mf">156.</span><span class="p">,</span> <span class="mf">159.</span><span class="p">,</span> <span class="mf">162.</span><span class="p">])</span>
+<span class="n">temps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">310.7</span><span class="p">,</span> <span class="mf">308.0</span><span class="p">,</span> <span class="mf">296.4</span><span class="p">,</span> <span class="mf">289.5</span><span class="p">,</span> <span class="mf">288.5</span><span class="p">,</span> <span class="mf">287.1</span><span class="p">,</span> <span class="mf">301.1</span><span class="p">,</span> <span class="mf">308.3</span><span class="p">,</span>
+                  <span class="mf">311.5</span><span class="p">,</span> <span class="mf">305.1</span><span class="p">,</span> <span class="mf">295.6</span><span class="p">,</span> <span class="mf">292.4</span><span class="p">,</span> <span class="mf">290.4</span><span class="p">,</span> <span class="mf">289.1</span><span class="p">,</span> <span class="mf">299.4</span><span class="p">,</span> <span class="mf">307.9</span><span class="p">,</span>
+                  <span class="mf">316.6</span><span class="p">,</span> <span class="mf">293.9</span><span class="p">,</span> <span class="mf">291.2</span><span class="p">,</span> <span class="mf">289.8</span><span class="p">,</span> <span class="mf">287.1</span><span class="p">,</span> <span class="mf">285.8</span><span class="p">,</span> <span class="mf">303.3</span><span class="p">,</span> <span class="mf">310.</span><span class="p">])</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<h2 id="create-a-figure">Create a figure</h2>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c"># get the first axis in a 1x1 grid of axes</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c">#nrows=1, ncols=1, index=1)</span>
+
+<span class="c"># Plot a dotted line with x=time and y=temps</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">temps</span><span class="p">,</span> <span class="s">'.-'</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[&lt;matplotlib.lines.Line2D at 0x1128f4898&gt;]
+</code></pre></div>      </div>
+
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <p class="output_png"><img src="images/matplotlib-basics_10_1.png" alt="png" /></p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="add-some-labels-to-the-plot">Add some labels to the plot</h3>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Time'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Temperature'</span><span class="p">)</span>
+
+<span class="c"># add a title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'GFS Temperature Forecast'</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s">'size'</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+
+<span class="c"># Prompt the notebook to re-display the figure after we modify it</span>
+<span class="n">fig</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <p class="output_png"><img src="images/matplotlib-basics_12_0.png" alt="png" /></p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="imshowcontour">imshow/contour</h2>
+<ul>
+  <li><code class="highlighter-rouge">imshow</code> displays the values in an array as colored pixels, similar to a heat map.</li>
+  <li><code class="highlighter-rouge">contour</code> creates contours around data.</li>
+  <li><code class="highlighter-rouge">contourf</code> creates filled contours around data.</li>
+</ul>
+
+<p>First let’s create some fake data to work with - let’s use a bivariate normal distribution.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="p">(</span><span class="n">Z1</span> <span class="o">-</span> <span class="n">Z2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<h3 id="create-a-filled-contour-plot">Create a filled contour plot</h3>
+
+<p>The <code class="highlighter-rouge">cmap</code> argument specifies the 
+<a href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html">colormap</a> 
+to use. We can also specify the contour levels.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">dz</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'PiYG'</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">2</span><span class="o">+</span><span class="n">dz</span><span class="p">,</span> <span class="n">dz</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+
+<span class="n">dz</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'PiYG'</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span> <span class="mi">2</span><span class="o">+</span><span class="n">dz</span><span class="p">,</span> <span class="n">dz</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.colorbar.Colorbar at 0x11518e0f0&gt;
+</code></pre></div>      </div>
+
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <p class="output_png"><img src="images/matplotlib-basics_17_1.png" alt="png" /></p>
+
+    </div>
+  </div>
+</div>
  <nav class="c-page__nav">
    
+  <a
+    id="js-page__nav__prev"
+    class="c-page__nav__prev"
+    href="/visualization/viz-I-intro"
+  >
+    〈 <span class="u-margin-right-tiny"></span> Part I - Basic plotting
+  </a>
+    
+  <a
+    id="js-page__nav__next"
+    class="c-page__nav__next"
+    href="/visualization/cartopy-basics"
+  >
+    Cartopy
+    <span class="u-margin-right-tiny"></span> 〉
+  </a>
+  
 </nav>
 
           </div>
