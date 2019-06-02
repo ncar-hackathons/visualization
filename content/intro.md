@@ -1,1 +1,1 @@
-# The Scientific Python ecosystem
+# Basics of visualization in Python
