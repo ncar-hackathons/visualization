@@ -22,30 +22,30 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1" />
 
   <title>
-    Contour with streamlines
+    Cartopy
   </title>
   <meta
     name="description"
-    content="Example: Contour plot with streamlines"
+    content="Getting started with cartopy"
   />
 
   <link
     rel="canonical"
-    href="https://ncar-hackathons.github.io/visualization/examples/example-Streamlines.html"
+    href="https://ncar-hackathons.github.io/visualization/cartopy-basics.html"
   />
   <link rel="alternate" type="application/rss+xml" title="Data Visualization in Python"
   href="https://ncar-hackathons.github.io/visualization/feed.xml"> <meta
   property="og:url"
-  content="https://ncar-hackathons.github.io/visualization/examples/example-Streamlines.html"
+  content="https://ncar-hackathons.github.io/visualization/cartopy-basics.html"
 />
 <meta property="og:type" content="article" />
 <meta
   property="og:title"
-  content="Contour with streamlines"
+  content="Cartopy"
 />
 <meta
   property="og:description"
-  content="Example: Contour plot with streamlines"
+  content="Getting started with cartopy"
 />
 <meta property="og:image" content="" />
 
@@ -54,11 +54,11 @@
     {
   "@context": "http://schema.org",
   "@type": "NewsArticle",
-  "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/examples/example-Streamlines.html",
-  "headline": "Contour with streamlines",
+  "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/cartopy-basics.html",
+  "headline": "Cartopy",
   "datePublished": "2019-06-02T20:20:31+00:00",
   "dateModified": "2019-06-02T20:20:31+00:00",
-  "description": "Example: Contour plot with streamlines",
+  "description": "Getting started with cartopy",
   "author": {
     "@type": "Person",
     "name": "The XDev Team"
@@ -266,7 +266,7 @@
       theme: "abcdef"
     },
     kernelOptions: {
-      name: 'py3',
+      name: 'dev',
     }
   }
 </script>
@@ -877,7 +877,7 @@ initFunction(initQuery);
 
         <li class="c-sidebar__section">
           <a
-            class="c-sidebar__entry "
+            class="c-sidebar__entry c-sidebar__entry--active"
             href="/visualization/cartopy-basics.html"
           >
              Cartopy
@@ -916,7 +916,7 @@ initFunction(initQuery);
 
         <li class="c-sidebar__section">
           <a
-            class="c-sidebar__entry c-sidebar__entry--active"
+            class="c-sidebar__entry "
             href="/visualization/examples/example-Streamlines.html"
           >
              Contour with streamlines
@@ -972,7 +972,7 @@ initFunction(initQuery);
 </div>
  
 <div class="buttons">
-  <a href="/visualization/content/examples/example-Streamlines.ipynb" download>
+  <a href="/visualization/content/cartopy-basics.ipynb" download>
   <button id="interact-button-download" class="interact-button">
     Download
   </button>
@@ -985,7 +985,7 @@ initFunction(initQuery);
  
     
 
-<a href="https://binder.pangeo.io/v2/gh/ncar-hackathons/visualization/master?urlpath=lab/tree/content%2Fexamples%2Fexample-Streamlines.ipynb"
+<a href="https://binder.pangeo.io/v2/gh/ncar-hackathons/visualization/master?urlpath=lab/tree/content%2Fcartopy-basics.ipynb"
   ><button class="interact-button" id="interact-button-binder">
     <img
       class="interact-button-logo"
@@ -1000,29 +1000,60 @@ initFunction(initQuery);
 
 
           <div class="c-textbook__content">
-            <h1 id="example-contour-plot-with-streamlines">Example: Contour plot with streamlines</h1>
-
-<p>In this example, we’ll plot a tracer field from CAM and overlay streamlines showing the flow.</p>
+            <h2 id="getting-started-with-cartopy">Getting started with <code class="highlighter-rouge">cartopy</code></h2>
 
 <div class="cell code_cell">
   <div class="input_area">
     <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="n">xr</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="n">ccrs</span>
-<span class="kn">from</span> <span class="nn">cartopy.util</span> <span class="kn">import</span> <span class="n">add_cyclic_point</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
 </code></pre></div>    </div>
   </div>
 
 </div>
 
-<h2 id="load-the-dataset">Load the dataset</h2>
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="n">ccrs</span>
+
+<span class="c"># use matplotlib's built-in transform support, same function calls</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">axm</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mf">300.</span><span class="p">))</span>
+
+<span class="c"># set the extent to global</span>
+<span class="n">axm</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+
+<span class="c"># add standard background map</span>
+<span class="n">axm</span><span class="o">.</span><span class="n">stock_img</span><span class="p">()</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.image.AxesImage at 0x120335f60&gt;
+</code></pre></div>      </div>
+
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <p class="output_png"><img src="images/cartopy-basics_2_1.png" alt="png" /></p>
+
+    </div>
+  </div>
+</div>
+
+<h2 id="plotting-a-global-contour-map">Plotting a global contour map</h2>
+
+<p>Load a dataset of dissolved oxygen concentration in the thermocline (400-600 m depth).</p>
 
 <div class="cell code_cell">
   <div class="input_area">
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s">'../data/co2.nc'</span><span class="p">)</span>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="n">xr</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s">'data/woa2013v2-O2-thermocline-ann.nc'</span><span class="p">)</span>
 <span class="n">ds</span>
 </code></pre></div>    </div>
   </div>
@@ -1031,80 +1062,144 @@ initFunction(initQuery);
     <div class="output_subarea">
 
       <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;xarray.Dataset&gt;
-Dimensions:  (lat: 192, lon: 288)
+Dimensions:  (lat: 180, lon: 360)
 Coordinates:
-  * lat      (lat) float64 -90.0 -89.06 -88.12 -87.17 ... 87.17 88.12 89.06 90.0
-  * lon      (lon) float64 0.0 1.25 2.5 3.75 5.0 ... 355.0 356.2 357.5 358.8
+  * lat      (lat) float32 -89.5 -88.5 -87.5 -86.5 -85.5 ... 86.5 87.5 88.5 89.5
+  * lon      (lon) float32 -179.5 -178.5 -177.5 -176.5 ... 177.5 178.5 179.5
 Data variables:
-    CO2      (lat, lon) float32 ...
-    U        (lat, lon) float32 ...
-    V        (lat, lon) float32 ...
+    O2       (lat, lon) float32 ...
+    dz       float32 ...
 Attributes:
-    note:         bottom level CO2, U, &amp; V from bgeos5.B20TRC5CN.f09_g16.BPRD...
-    time_period:  January 15 2016
+    title:       World Ocean Atlas 2013 version 2
+    references:   Garcia H. E., T. P. Boyer, R. A. Locarnini, A. V. Mishonov,...
 </code></pre></div>      </div>
 
     </div>
   </div>
 </div>
 
-<h2 id="convert-units">Convert units</h2>
+<h3 id="use-xarrays-hooks-to-matplotlib-to-create-a-quick-look-plot">Use <code class="highlighter-rouge">xarray</code>’s hooks to <code class="highlighter-rouge">matplotlib</code> to create a quick-look plot</h3>
 
 <div class="cell code_cell">
   <div class="input_area">
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mwair</span> <span class="o">=</span> <span class="mf">28.966</span>
-<span class="n">mwco2</span> <span class="o">=</span> <span class="mf">44.</span>
-<span class="k">with</span> <span class="n">xr</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="n">keep_attrs</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="n">ds</span><span class="p">[</span><span class="s">'CO2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">CO2</span> <span class="o">*</span> <span class="mf">1.0e6</span> <span class="o">*</span> <span class="n">mwair</span> <span class="o">/</span> <span class="n">mwco2</span>
-    <span class="n">ds</span><span class="o">.</span><span class="n">CO2</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">'units'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'ppm'</span>
-</code></pre></div>    </div>
-  </div>
-
-</div>
-
-<h2 id="make-the-plot">Make the plot</h2>
-
-<div class="cell code_cell">
-  <div class="input_area">
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-
-<span class="c"># create axis with subplot a project</span>
-<span class="n">crs_latlon</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">crs_latlon</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mf">180.</span> <span class="p">,</span> <span class="o">-</span><span class="mi">85</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">crs_latlon</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="s">'50m'</span><span class="p">)</span>
-
-<span class="c"># plot CO2</span>
-<span class="n">field</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">add_cyclic_point</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">CO2</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
-<span class="n">cf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> 
-                 <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">391</span><span class="p">,</span> <span class="mf">406.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
-                 <span class="n">cmap</span><span class="o">=</span><span class="s">'RdYlBu_r'</span><span class="p">,</span>
-                 <span class="n">extend</span><span class="o">=</span><span class="s">'both'</span><span class="p">,</span>
-                 <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
-
-<span class="c"># plot velocity field</span>
-<span class="n">uvel</span><span class="p">,</span> <span class="n">lonu</span> <span class="o">=</span> <span class="n">add_cyclic_point</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
-<span class="n">vvel</span><span class="p">,</span> <span class="n">lonv</span> <span class="o">=</span> <span class="n">add_cyclic_point</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
-
-<span class="n">lonu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lonu</span><span class="o">&gt;=</span><span class="mf">180.</span><span class="p">,</span><span class="n">lonu</span><span class="o">-</span><span class="mf">360.</span><span class="p">,</span><span class="n">lonu</span><span class="p">)</span>
-
-<span class="n">sp</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">lonu</span><span class="p">,</span> <span class="n">ds</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">uvel</span><span class="p">,</span> <span class="n">vvel</span><span class="p">,</span>
-                   <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                   <span class="n">arrowsize</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
-                   <span class="n">density</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                   <span class="n">color</span><span class="o">=</span><span class="s">'k'</span><span class="p">,</span>
-                   <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
-
-<span class="c"># add colorbar</span>
-<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cf</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s">'horizontal'</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'CO$_2$ [ppm]'</span><span class="p">);</span>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ds</span><span class="o">.</span><span class="n">O2</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </code></pre></div>    </div>
   </div>
 
   <div class="output_wrapper">
     <div class="output_subarea">
 
-      <p class="output_png"><img src="../images/examples/example-Streamlines_7_0.png" alt="png" /></p>
+      <p class="output_png"><img src="images/cartopy-basics_6_0.png" alt="png" /></p>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="colormap-normalization">Colormap normalization</h3>
+
+<ul>
+  <li>Objects that use colormaps by default linearly map the colors in the colormap from data values vmin to vmax.</li>
+  <li><a href="https://matplotlib.org/3.1.0/tutorials/colors/colormapnorms.html">Colormap normalization</a> provides a means of manipulating the mapping.</li>
+</ul>
+
+<p>For instance:</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="n">colors</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">norm</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.5
+</code></pre></div>      </div>
+
+    </div>
+  </div>
+</div>
+
+<p>We can map data to colormaps in a non-linear fashion using other normalizations, for example:</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e2</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">norm</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">]))</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([0.  , 0.25, 0.5 , 0.75, 1.  ])
+</code></pre></div>      </div>
+
+    </div>
+  </div>
+</div>
+
+<h3 id="back-to-oxygen">…back to oxygen</h3>
+<p>Set contour levels to non-uniform intervals and make the colormap centered at the hypoxic threshold using <code class="highlighter-rouge">DivergingNorm</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span>  <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">125</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> 
+          <span class="mi">250</span><span class="p">,</span> <span class="mi">275</span><span class="p">,</span> <span class="mi">300</span><span class="p">]</span>
+
+<span class="n">norm</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">DivergingNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vmax</span><span class="o">=</span><span class="n">levels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">vcenter</span><span class="o">=</span><span class="mf">60.</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<p>Add a cyclic point to accomodate the periodic domain.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">cartopy.util</span> <span class="kn">import</span> <span class="n">add_cyclic_point</span>
+<span class="n">field</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">add_cyclic_point</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">O2</span><span class="p">,</span> <span class="n">coord</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">lat</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
+
+<h3 id="putting-it-all-together">Putting it all together…</h3>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Robinson</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mf">305.0</span><span class="p">))</span>
+
+<span class="c"># filled contours</span>
+<span class="n">cf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'RdBu'</span><span class="p">,</span>
+                 <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">());</span>
+
+<span class="c"># contour lines</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">'k'</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+
+<span class="c"># add contour labels</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s">'</span><span class="si">%</span><span class="s">r'</span><span class="p">);</span>
+
+<span class="c"># land</span>
+<span class="n">land</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span>
+    <span class="n">cartopy</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">NaturalEarthFeature</span><span class="p">(</span><span class="s">'physical'</span><span class="p">,</span><span class="s">'land'</span><span class="p">,</span><span class="s">'110m'</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">'black'</span><span class="p">))</span>
+
+<span class="c"># colorbar and labels</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cf</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'mmol m$^{-3}$'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Thermocline dissolve oxygen'</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <p class="output_png"><img src="images/cartopy-basics_16_0.png" alt="png" /></p>
 
     </div>
   </div>
@@ -1114,17 +1209,17 @@ Attributes:
   <a
     id="js-page__nav__prev"
     class="c-page__nav__prev"
-    href="/visualization/examples/example-MOC"
+    href="/visualization/viz-I-intro"
   >
-    〈 <span class="u-margin-right-tiny"></span> POP2-CESM MOC
+    〈 <span class="u-margin-right-tiny"></span> Part I - Basic plotting
   </a>
     
   <a
     id="js-page__nav__next"
     class="c-page__nav__next"
-    href="/visualization/examples/cartopy_map_projections"
+    href="/visualization/examples/intro"
   >
-    Cartopy Map Projections
+    Examples
     <span class="u-margin-right-tiny"></span> 〉
   </a>
   

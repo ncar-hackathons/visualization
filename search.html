@@ -56,8 +56,8 @@
   "@type": "NewsArticle",
   "mainEntityOfPage": "https://ncar-hackathons.github.io/visualization/search",
   "headline": "Search the site",
-  "datePublished": "2019-05-31T00:10:34+00:00",
-  "dateModified": "2019-05-31T00:10:34+00:00",
+  "datePublished": "2019-06-02T20:20:31+00:00",
+  "dateModified": "2019-06-02T20:20:31+00:00",
   "description": "",
   "author": {
     "@type": "Person",
@@ -865,6 +865,33 @@ initFunction(initQuery);
     </li>
           
     <li class="c-sidebar__chapter">
+      <a class="c-sidebar__entry " href="/visualization/viz-I-intro.html">
+         Part I - Basic plotting
+      </a>
+
+        
+        
+
+      <ul class="c-sidebar__sections ">
+          
+
+        <li class="c-sidebar__section">
+          <a
+            class="c-sidebar__entry "
+            href="/visualization/cartopy-basics.html"
+          >
+             Cartopy
+          </a>
+
+           
+        </li>
+         
+      </ul>
+      
+    </li>
+
+           
+    <li class="c-sidebar__chapter">
       <a class="c-sidebar__entry " href="/visualization/examples/intro.html">
          Examples
       </a>
@@ -950,6 +977,14 @@ initFunction(initQuery);
 <script>
   // Add the lunr store since we will now search it
   var store = [{
+        "title": "Cartopy",
+        
+        "excerpt":
+            "Getting started with cartopy %matplotlib inline import matplotlib.pyplot as plt import numpy as np import cartopy import cartopy.crs as ccrs # use matplotlib's built-in transform support, same function calls fig = plt.figure(figsize=(10, 4)) axm = fig.add_subplot(1, 1, 1, projection=ccrs.Robinson(central_longitude=300.)) # set the extent to global axm.set_global() # add standard background map axm.stock_img() &lt;matplotlib.image.AxesImage at 0x120335f60&gt; Plotting a global contour map Load a dataset of dissolved oxygen concentration in the thermocline (400-600 m depth). import xarray as xr ds = xr.open_dataset('data/woa2013v2-O2-thermocline-ann.nc') ds &lt;xarray.Dataset&gt; Dimensions: (lat: 180, lon: 360) Coordinates: * lat (lat) float32 -89.5 -88.5 -87.5 -86.5 -85.5 ... 86.5 87.5...",
+        "categories": [],
+        "tags": [],
+        "url": "https://ncar-hackathons.github.io/visualization/cartopy-basics.html",
+        "teaser":null},{
         "title": "Cartopy Map Projections",
         
         "excerpt":
@@ -985,10 +1020,18 @@ initFunction(initQuery);
         "title": "Home",
         
         "excerpt":
-            "The Scientific Python ecosystem  ",
+            "Basics of visualization in Python  ",
         "categories": [],
         "tags": [],
         "url": "https://ncar-hackathons.github.io/visualization/intro.html",
+        "teaser":null},{
+        "title": "Part I - Basic plotting",
+        
+        "excerpt":
+            "Basics of plotting   This tutorial covers some basic elements for making plots in Python.  ",
+        "categories": [],
+        "tags": [],
+        "url": "https://ncar-hackathons.github.io/visualization/viz-I-intro.html",
         "teaser":null},]
 
 </script>
